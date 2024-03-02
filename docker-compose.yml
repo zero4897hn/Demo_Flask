@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    container_name: demo_flask_web
+    build: .
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./app:/app
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://root:Root123@db:5432/db_demo"
+  db:
+    container_name: demo_flask_db
+    image: postgres:16.2
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: db_demo
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: Root123
